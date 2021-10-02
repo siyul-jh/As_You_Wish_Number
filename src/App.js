@@ -1,32 +1,32 @@
-import Header from './component/Header';
-import Section from './component/Section';
-import Footer from './component/Footer';
-import styled from 'styled-components';
+import Section from './view/main/components/Section';
 import './App.scss';
+import Qna from './view/qna/qna';
+import Layout from './view/common/components/layout';
+import React, { createContext, useState } from 'react';
+import { Switch } from 'react-router-dom';
 // min-width : 600px;
 // max-width : 1440px;
 // min-height : 1080px;
-const Container = styled.div`
-	width: 100%;
-	text-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 80%;
-	height: 80%;
-	max-width: 1440px;
-	border: 24px solid #e5b308dd;
-	background-color: #00000050;
-	z-index: 0;
-`;
+export const AnswerContext = createContext(null);
 function App() {
+	const [state, setState] = useState({});
+
 	return (
-		<Container>
-			<Header />
-			<Section />
-			<Footer />
-		</Container>
+		<AnswerContext.Provider value={setState}>
+			<React.Suspense
+				fallback={
+					<div className="loading">
+						<div className="spinner" />
+					</div>
+				}
+			>
+				<Switch>
+					<Layout exact path="/" name="App" component={Section} />
+					<Layout exact path="/question" name="question" component={Qna} />
+					<Layout exact path="/result" name="result" state={state} />
+				</Switch>
+			</React.Suspense>
+		</AnswerContext.Provider>
 	);
 }
 

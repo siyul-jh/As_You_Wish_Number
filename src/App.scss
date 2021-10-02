@@ -13,3 +13,16 @@ body {
 	width: 100vh;
 	height: 100vh;
 }
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vh;
+	height: 100vh;
+	&.spinner {
+		width: 30px;
+		height: 30px;
+		border-radius: 30px;
+		background-color: #a6e3ff;
+	}
+}
