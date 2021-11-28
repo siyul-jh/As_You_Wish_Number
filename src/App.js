@@ -1,6 +1,7 @@
-import Section from './view/main/components/Section';
 import './App.scss';
-import Qna from './view/qna/qna';
+import Section from './view/main';
+import Qna from './view/qna';
+import Result from './view/result';
 import Layout from './view/common/components/layout';
 import React, { createContext, useState } from 'react';
 import { Switch } from 'react-router-dom';
@@ -10,9 +11,8 @@ import { Switch } from 'react-router-dom';
 export const AnswerContext = createContext(null);
 function App() {
 	const [state, setState] = useState({});
-
 	return (
-		<AnswerContext.Provider value={setState}>
+		<AnswerContext.Provider value={{ state, setState }}>
 			<React.Suspense
 				fallback={
 					<div className="loading">
@@ -23,7 +23,7 @@ function App() {
 				<Switch>
 					<Layout exact path="/" name="App" component={Section} />
 					<Layout exact path="/question" name="question" component={Qna} />
-					<Layout exact path="/result" name="result" state={state} />
+					<Layout exact path="/result" name="result" component={Result} />
 				</Switch>
 			</React.Suspense>
 		</AnswerContext.Provider>

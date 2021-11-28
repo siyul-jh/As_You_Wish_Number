@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import React, { useContext } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
-import { qnaList } from '../../../common/index';
+import { AnswerContext } from '../../App';
+import { qnaList } from '../../common/index';
 const StyledSection = styled.section`
 	padding: 1rem;
 	.intro {
@@ -28,12 +30,16 @@ const StyledSection = styled.section`
 	.answer-list {
 		padding: 0;
 		margin: 0 20%;
-		list-style: none;
+		flex-wrap: wrap;
+		display: flex;
+		flex-direction: column;
+		& .answer {
+			margin: 1rem 0;
+		}
 		& .answer button {
 			width: 100%;
 			font-size: 18px;
 			padding: 1rem;
-			margin: 1rem 0;
 			border: none;
 			border-radius: 2rem;
 			outline: none;
@@ -73,41 +79,34 @@ const StyledSection = styled.section`
 		}
 	}
 `;
-export default function Section() {
-	const [question, setQuestion] = useState(0);
-	const [answer, setAnswer] = useState(0);
-	console.log(qnaList);
+export default function Qna() {
+	const context = useContext(AnswerContext);
+	const history = useHistory();
+	const loaction = useLocation();
+	const data = qnaList[loaction.state - 1];
+	const onClickHandler = (number) => {
+		context.setState((prev, idx) => ({
+			...prev,
+			[loaction.state]: number,
+		}));
+		if (loaction.state === 12) {
+			history.push({ pathname: '/result' });
+		} else {
+			history.push({ pathname: '/question', state: loaction.state + 1 });
+		}
+	};
 	return (
 		<StyledSection>
-			<div className="intro">
-				<h2>당신을 위한 선택이 준비되어 있습니다.</h2>
-				<div className="start">
-					<button>시작</button>
-				</div>
-			</div>
 			<div className="qna">
-				<h2 className="q">Q1. 질문</h2>
+				<h2 className="q">{data?.q ?? ''}</h2>
 				<div className="a">
-					<ul className="answer-list">
-						<li className="answer">
-							<button>1</button>
-						</li>
-						<li className="answer">
-							<button>2</button>
-						</li>
-						<li className="answer">
-							<button>3</button>
-						</li>
-						<li className="answer">
-							<button>4</button>
-						</li>
-						<li className="answer">
-							<button>5</button>
-						</li>
-					</ul>
-				</div>
-				<div className="submit">
-					<button>완료</button>
+					<div className="answer-list">
+						{data?.a.map((answer) => (
+							<div key={answer.number} className="answer">
+								<button onClick={() => onClickHandler(answer.number)}>{answer.answer}</button>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</StyledSection>

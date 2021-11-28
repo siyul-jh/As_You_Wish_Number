@@ -98,17 +98,7 @@ export const qnaList = [
 		],
 	},
 	{
-		q: 'Q11. 질문은 끝났습니다. 오늘을 시작하는 당신의 기분은 어떤가요?',
-		a: [
-			{ answer: '즐거움', number: 1 },
-			{ answer: '화남', number: 2 },
-			{ answer: '슬픔', number: 3 },
-			{ answer: '두근거림', number: 4 },
-			{ answer: '아무런 기분이 없음', number: 5 },
-		],
-	},
-	{
-		q: '당신이 좋아하는 숫자를 넣어볼까요?',
+		q: 'Q11. 질문은 끝났습니다. 당신이 좋아하는 숫자를 넣어볼까요?',
 		a: [
 			{ answer: '네', number: 1 },
 			{ answer: '아니요', number: 2 },
@@ -119,3 +109,16 @@ export const qnaList = [
 // 모레시계 로딩
 
 // 결과 도출
+
+function 사과(변명) {
+	const 사건 = '친구가 조부모상 당했다. 데이트 파토내고 장례식장 가서 친구 달래주고 친구들이랑 술마시러나감';
+	switch ('친구 상황') {
+		case '부랄친구':
+		case '친구_부모님은_안녕하시다':
+		case '식장에_오는_사람이_있다':
+			return false;
+		default:
+			alert('모든_조건에_해당하지_않는다');
+			return true;
+	}
+}

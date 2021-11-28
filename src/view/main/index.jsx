@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../../common/compoents/Buttons';
+import Button from '../common/compoents/buttons';
 const StyledSection = styled.section`
 	padding: 1rem;
 	.intro {
